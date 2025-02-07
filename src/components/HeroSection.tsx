@@ -14,7 +14,8 @@ const HeroSection = () => {
             </div>
           </div>
           <h1 className="text-5xl md:text-7xl font-bold">
-            <span className="text-primary">4 Way</span> Road Side
+            <span className="text-primary">4 Way</span>{" "}
+            <span className="text-green-500">Road Side</span>
           </h1>
           <h2 className="text-3xl md:text-4xl font-semibold mb-8">
             Auto Assistance LLC
