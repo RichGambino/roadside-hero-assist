@@ -1,5 +1,5 @@
 
-import { PhoneCall } from "lucide-react";
+import { PhoneCall, Car } from "lucide-react";
 import { Button } from "./ui/button";
 
 const HeroSection = () => {
@@ -8,6 +8,11 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-[url('/lovable-uploads/f229dead-10de-4920-ba93-c60e575123a0.png')] bg-cover bg-center opacity-20" />
       <div className="container mx-auto px-4 z-10 animate-fade-in">
         <div className="text-center space-y-6">
+          <div className="flex justify-center items-center mb-6">
+            <div className="bg-primary p-4 rounded-full">
+              <Car size={48} className="text-white" />
+            </div>
+          </div>
           <h1 className="text-5xl md:text-7xl font-bold">
             <span className="text-primary">4 Way</span> Road Side
           </h1>
