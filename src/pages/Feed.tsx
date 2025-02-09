@@ -1,8 +1,14 @@
 
+import { useState } from "react";
 import { Rss } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 
 const Feed = () => {
-  const feedItems = [
+  const { toast } = useToast();
+  const [feedItems, setFeedItems] = useState([
     {
       id: 1,
       title: "24/7 Emergency Services Available",
@@ -21,7 +27,40 @@ const Feed = () => {
       content: "Our average response time is under 30 minutes.",
       date: "2024-02-18",
     },
-  ];
+  ]);
+
+  const [newPost, setNewPost] = useState({
+    title: "",
+    content: "",
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!newPost.title || !newPost.content) {
+      toast({
+        title: "Error",
+        description: "Please fill in all fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const post = {
+      id: feedItems.length + 1,
+      title: newPost.title,
+      content: newPost.content,
+      date: new Date().toISOString().split('T')[0],
+    };
+
+    setFeedItems([post, ...feedItems]);
+    setNewPost({ title: "", content: "" });
+    
+    toast({
+      title: "Success",
+      description: "Your update has been posted",
+    });
+  };
 
   return (
     <div className="min-h-screen bg-secondary">
@@ -41,6 +80,38 @@ const Feed = () => {
           </p>
         </div>
 
+        {/* Upload Form */}
+        <div className="max-w-3xl mx-auto mb-12">
+          <form onSubmit={handleSubmit} className="bg-black/50 p-6 rounded-lg border border-primary/20 space-y-4">
+            <h2 className="text-2xl font-semibold text-primary mb-4">Create New Update</h2>
+            <div className="space-y-2">
+              <label className="text-white">Title</label>
+              <Input
+                value={newPost.title}
+                onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
+                placeholder="Enter title"
+                className="bg-black/50 border-primary/20 text-white"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-white">Content</label>
+              <Textarea
+                value={newPost.content}
+                onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
+                placeholder="Enter content"
+                className="bg-black/50 border-primary/20 text-white"
+              />
+            </div>
+            <Button 
+              type="submit"
+              className="w-full bg-primary hover:bg-primary/90 text-white"
+            >
+              Post Update
+            </Button>
+          </form>
+        </div>
+
+        {/* Feed Items */}
         <div className="grid gap-6 max-w-3xl mx-auto">
           {feedItems.map((item) => (
             <div
