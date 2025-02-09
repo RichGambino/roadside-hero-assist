@@ -10,8 +10,12 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 z-10 animate-fade-in">
         <div className="text-center space-y-6">
           <div className="flex justify-center items-center mb-6">
-            <div className="bg-primary p-4 rounded-full">
-              <Car size={48} className="text-white" />
+            <div className="bg-black/50 p-4 rounded-full w-32 h-32 flex items-center justify-center border-4 border-primary overflow-hidden">
+              <img 
+                src="/lovable-uploads/98bc721b-ed00-4069-8c9b-698c06c8a9c4.png" 
+                alt="4 Way Road Side Auto Assistance"
+                className="w-full h-full object-contain"
+              />
             </div>
           </div>
           <h1 className="text-5xl md:text-7xl font-bold">
