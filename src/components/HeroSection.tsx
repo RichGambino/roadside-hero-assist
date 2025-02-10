@@ -12,9 +12,9 @@ const HeroSection = () => {
           <div className="flex justify-center items-center mb-6">
             <div className="bg-black/50 p-4 rounded-full w-32 h-32 flex items-center justify-center border-4 border-primary overflow-hidden">
               <img 
-                src="/lovable-uploads/98bc721b-ed00-4069-8c9b-698c06c8a9c4.png" 
-                alt="4 Way Road Side Auto Assistance"
-                className="w-full h-full object-contain"
+                src="/lovable-uploads/abe03395-6549-4c38-aa91-e8c43b3f586d.png" 
+                alt="4 Way Road Side Auto Assistance Van"
+                className="w-full h-full object-cover"
               />
             </div>
           </div>
