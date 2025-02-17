@@ -1,8 +1,17 @@
-User-agent: Googlebot
-Disallow:
-Sitemap: https://www.4wayroadsideautoassistancellc.com/sitemap.xml
-User-agent: Googlebot
-Disallow:
+# robots.txt for [https://www.4wayroadsideautoassistancellc.com/]
 
+# Allow all crawlers access to all content
 User-agent: *
 Disallow:
+
+# Disallow a specific crawler
+User-agent: Googlebot
+Disallow: /private/
+
+# Block all crawlers from a specific directory
+User-agent: *
+Disallow: /no-crawl/
+
+# Block specific pages
+User-agent: *
+Disallow: /secret-page/
