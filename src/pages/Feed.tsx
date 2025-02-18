@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const Feed = () => {
   const { toast } = useToast();
@@ -15,6 +16,7 @@ const Feed = () => {
       content: "We're always here when you need us, any time, any day.",
       date: "2024-02-20",
       image: null,
+      video: null,
     },
     {
       id: 2,
@@ -22,6 +24,7 @@ const Feed = () => {
       content: "Now serving additional areas in the Greater New York region.",
       date: "2024-02-19",
       image: null,
+      video: null,
     },
     {
       id: 3,
@@ -29,6 +32,7 @@ const Feed = () => {
       content: "Our average response time is under 30 minutes.",
       date: "2024-02-18",
       image: null,
+      video: null,
     },
   ]);
 
@@ -36,11 +40,19 @@ const Feed = () => {
     title: "",
     content: "",
     image: null as File | null,
+    video: null as File | null,
   });
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleMediaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setNewPost({ ...newPost, image: e.target.files[0] });
+      const file = e.target.files[0];
+      const fileType = file.type.split('/')[0];
+      
+      if (fileType === 'image') {
+        setNewPost({ ...newPost, image: file, video: null });
+      } else if (fileType === 'video') {
+        setNewPost({ ...newPost, video: file, image: null });
+      }
     }
   };
 
@@ -56,26 +68,30 @@ const Feed = () => {
       return;
     }
 
-    let imageUrl = null;
-    if (newPost.image) {
+    let mediaUrl = null;
+    const mediaFile = newPost.image || newPost.video;
+    
+    if (mediaFile) {
       const formData = new FormData();
-      formData.append('image', newPost.image);
+      formData.append('file', mediaFile);
       
       try {
-        const response = await fetch('/api/upload', {
-          method: 'POST',
-          body: formData
-        });
-        
-        if (response.ok) {
-          const data = await response.json();
-          imageUrl = data.url;
-        }
+        const { data, error } = await supabase.storage
+          .from('posts')
+          .upload(`${Date.now()}-${mediaFile.name}`, mediaFile);
+
+        if (error) throw error;
+
+        const { data: { publicUrl } } = supabase.storage
+          .from('posts')
+          .getPublicUrl(data.path);
+
+        mediaUrl = publicUrl;
       } catch (error) {
-        console.error('Error uploading image:', error);
+        console.error('Error uploading media:', error);
         toast({
           title: "Error",
-          description: "Failed to upload image",
+          description: "Failed to upload media",
           variant: "destructive",
         });
         return;
@@ -87,11 +103,12 @@ const Feed = () => {
       title: newPost.title,
       content: newPost.content,
       date: new Date().toISOString().split('T')[0],
-      image: imageUrl,
+      image: newPost.image ? mediaUrl : null,
+      video: newPost.video ? mediaUrl : null,
     };
 
     setFeedItems([post, ...feedItems]);
-    setNewPost({ title: "", content: "", image: null });
+    setNewPost({ title: "", content: "", image: null, video: null });
     
     toast({
       title: "Success",
@@ -140,18 +157,18 @@ const Feed = () => {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-white block mb-2">Upload Image</label>
+              <label className="text-white block mb-2">Upload Media (Image or Video)</label>
               <div className="flex items-center space-x-2">
                 <Input
                   type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
+                  accept="image/*,video/*"
+                  onChange={handleMediaChange}
                   className="bg-black/50 border-primary/20 text-white file:bg-primary file:text-white file:border-0 file:rounded-md"
                 />
                 <ImageIcon className="text-primary w-6 h-6" />
               </div>
-              {newPost.image && (
-                <p className="text-sm text-green-500">Image selected: {newPost.image.name}</p>
+              {(newPost.image || newPost.video) && (
+                <p className="text-sm text-green-500">Media selected: {newPost.image?.name || newPost.video?.name}</p>
               )}
             </div>
             <Button 
@@ -176,6 +193,15 @@ const Feed = () => {
                   alt={item.title}
                   className="w-full h-48 object-cover rounded-lg mb-4"
                 />
+              )}
+              {item.video && (
+                <video
+                  src={item.video}
+                  controls
+                  className="w-full rounded-lg mb-4"
+                >
+                  Your browser does not support the video tag.
+                </video>
               )}
               <h3 className="text-xl font-semibold text-primary mb-2">
                 {item.title}
