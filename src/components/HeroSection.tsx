@@ -52,7 +52,7 @@ const HeroSection = () => {
             <Link to="/feed">
               <Button
                 size="lg"
-                className="bg-primary hover:bg-primary/90 text-white rounded-full shadow-lg hover:shadow-primary/50 transition-all duration-300 transform hover:scale-105 animate-bounce"
+                className="bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg hover:shadow-green-500/50 transition-all duration-300 transform hover:scale-105 animate-bounce"
               >
                 Latest Updates
               </Button>
