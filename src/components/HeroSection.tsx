@@ -39,11 +39,11 @@ const HeroSection = () => {
             24/7 Emergency Roadside Assistance Services
           </p>
 
-          {/* Animated buttons with reduced bounce */}
+          {/* Animated buttons with bounce */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-white rounded-full shadow-lg hover:shadow-primary/50 transition-all duration-300 transform hover:scale-105"
+              className="bg-primary hover:bg-primary/90 text-white rounded-full shadow-lg hover:shadow-primary/50 transition-all duration-300 transform hover:scale-105 animate-bounce"
               onClick={() => window.location.href = "tel:347-513-8284"}
             >
               <PhoneCall className="mr-2 h-5 w-5" />
@@ -52,7 +52,7 @@ const HeroSection = () => {
             <Link to="/feed">
               <Button
                 size="lg"
-                className="bg-primary hover:bg-primary/90 text-white rounded-full shadow-lg hover:shadow-primary/50 transition-all duration-300 transform hover:scale-105"
+                className="bg-primary hover:bg-primary/90 text-white rounded-full shadow-lg hover:shadow-primary/50 transition-all duration-300 transform hover:scale-105 animate-bounce"
               >
                 Latest Updates
               </Button>
