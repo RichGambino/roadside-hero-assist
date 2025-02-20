@@ -1,5 +1,5 @@
 
-import { PhoneCall, Car } from "lucide-react";
+import { PhoneCall, Car, Battery } from "lucide-react";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 
@@ -60,14 +60,18 @@ const HeroSection = () => {
           </div>
 
           {/* Floating service icons */}
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {['Battery', 'Tire', 'Fuel'].map((service, index) => (
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+            {['Battery', 'Jump Start', 'Tire', 'Fuel'].map((service, index) => (
               <div
                 key={service}
                 className="bg-black/30 p-6 rounded-xl backdrop-blur-sm border border-white/10 transform hover:scale-105 transition-all duration-300 animate-fade-in"
                 style={{ animationDelay: `${index * 200}ms` }}
               >
-                <Car className="w-8 h-8 mx-auto mb-3 text-primary" />
+                {service === 'Jump Start' ? (
+                  <Battery className="w-8 h-8 mx-auto mb-3 text-primary" />
+                ) : (
+                  <Car className="w-8 h-8 mx-auto mb-3 text-primary" />
+                )}
                 <p className="text-sm font-medium">{service}</p>
               </div>
             ))}
