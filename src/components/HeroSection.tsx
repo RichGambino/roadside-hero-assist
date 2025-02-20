@@ -14,9 +14,9 @@ const HeroSection = () => {
       
       <div className="container mx-auto px-4 z-10">
         <div className="text-center space-y-6">
-          {/* Animated logo */}
+          {/* Animated logo with reduced bounce */}
           <div className="flex justify-center items-center mb-6">
-            <div className="bg-black/50 p-4 rounded-full w-32 h-32 flex items-center justify-center border-4 border-primary hover:scale-105 transition-transform duration-300 overflow-hidden animate-bounce">
+            <div className="bg-black/50 p-4 rounded-full w-32 h-32 flex items-center justify-center border-4 border-primary hover:scale-105 transition-transform duration-300 overflow-hidden">
               <img 
                 src="/lovable-uploads/abe03395-6549-4c38-aa91-e8c43b3f586d.png" 
                 alt="4 Way Road Side Auto Assistance Van"
@@ -39,20 +39,20 @@ const HeroSection = () => {
             24/7 Emergency Roadside Assistance Services
           </p>
 
-          {/* Animated buttons */}
+          {/* Animated buttons with reduced bounce */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-white rounded-full shadow-lg hover:shadow-primary/50 transition-all duration-300 animate-pulse transform hover:scale-105"
+              className="bg-primary hover:bg-primary/90 text-white rounded-full shadow-lg hover:shadow-primary/50 transition-all duration-300 transform hover:scale-105"
               onClick={() => window.location.href = "tel:347-513-8284"}
             >
-              <PhoneCall className="mr-2 h-5 w-5 animate-bounce" />
+              <PhoneCall className="mr-2 h-5 w-5" />
               Call Now: 347-513-8284
             </Button>
             <Link to="/feed">
               <Button
                 size="lg"
-                className="bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg hover:shadow-green-500/50 transition-all duration-300 transform hover:scale-105"
+                className="bg-primary hover:bg-primary/90 text-white rounded-full shadow-lg hover:shadow-primary/50 transition-all duration-300 transform hover:scale-105"
               >
                 Latest Updates
               </Button>
@@ -60,8 +60,8 @@ const HeroSection = () => {
           </div>
 
           {/* Floating service icons */}
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-            {['Towing', 'Battery', 'Tire', 'Fuel'].map((service, index) => (
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            {['Battery', 'Tire', 'Fuel'].map((service, index) => (
               <div
                 key={service}
                 className="bg-black/30 p-6 rounded-xl backdrop-blur-sm border border-white/10 transform hover:scale-105 transition-all duration-300 animate-fade-in"
